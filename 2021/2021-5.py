@@ -39,7 +39,7 @@ def output_grid(grid_):
     return string
 
 
-longtext = open('../input.txt').read()
+longtext = open('longtext.txt').read()
 
 longtext = longtext.split("\n")
 x_vals = []
@@ -75,9 +75,9 @@ for i in y_vals:
 
 # create the grid
 grid = []
-for x in range(10):
+for x in range(1000):
     pixel_row = {}
-    for y in range(10):
+    for y in range(1000):
         pixel_row[y] = 0
     grid.append(pixel_row)
 
@@ -87,7 +87,7 @@ for x in range(10):
 # grid[0][9] += 1
 # input(output_grid(grid))
 
-for i in range(10):
+for i in range(500):
     x1 = x1_vals[i]
     x2 = x2_vals[i]
     y1 = y1_vals[i]
@@ -148,33 +148,33 @@ for i in range(10):
         # print(range(x))
         for m in range(x):
             # input(m)
-            if negative_x:
-                print(f"{x1},{y1}-->{x2},{y2}")
-                print(f"x and y values: {x},{y}")
-                print(f"dot supposed to be filled in: {x1 + m}, {y1 + m}")
-                grid[x1 + m][y1 + m] += 1
+            if negative_x and not negative_y:
+                # print(f"{x1},{y1}-->{x2},{y2}")
+                # print(f"x and y values: {x},{y}")
+                # print(f"dot supposed to be filled in: {x1 + m}, {y1 + m}")
+                grid[x1 + m][y1 - m] += 1
 
-            elif negative_y:
-                print("negative_y ran")
+            if negative_y and not negative_x:
+                # print("negative_y ran")
                 grid[x1 - m][y1 + m] += 1
-            elif negative_y and negative_x:
-                print("negative_y and negative_x ran")
-                grid[x1 - m][y1 - m] += 1
-            else:
-                print("else ran")
+            if negative_y and negative_x:
+                # print("negative_y and negative_x ran")
+                grid[x1 + m][y1 + m] += 1
+            if not negative_x and not negative_y:
+                # print("else ran")
                 # print(y1)
                 # print(x1 + m)
                 grid[x1 - m][y1 - m] += 1
         # input(output_grid(grid))
 
-    print(output_grid(grid))
+    # print(output_grid(grid))
 
 # grid[4][2] += 1
-print(output_grid(grid))
+# print(output_grid(grid))
 
-output = output_grid(grid)
-output_txt = open("output.txt", "w+")
-output_txt.write(output)
+# output = output_grid(grid)
+# output_txt = open("output.txt", "w+")
+# output_txt.write(output)
 
 overlap = 0
 
@@ -190,4 +190,4 @@ for i in grid:
         value = i[key]
         if value > 1:
             overlap += 1
-print(overlap)
+print(overlap)   
