@@ -1,3 +1,17 @@
+def check_stuff(sacks):
+    # print(sacks)
+    for char in sacks[0]:
+        if char in sacks[1] and char in sacks[2]:
+            # print(char)
+            to_add = switch[char.lower()]
+            # score_pt2 += switch[char.lower()]
+            if char.isupper():
+                to_add += 26
+            # print(to_add)
+            break
+    return to_add
+
+
 data = open("input.txt").read().split("\n")
 
 switch = {
@@ -29,8 +43,9 @@ switch = {
     "z": 26
 }
 
-priorities = {}
-
+priorities_pt1 = {}
+score_pt2 = 0
+sacks = []
 for sack in data:
     # print(len(sack))
     # print(sack)
@@ -47,13 +62,23 @@ for sack in data:
             if item.isupper():
                 priority += 26
             try:
-                priorities[item] += priority
+                priorities_pt1[item] += priority
             except KeyError:
-                priorities[item] = priority
+                priorities_pt1[item] = priority
             counted.append(item)
 
+    sacks.append(sack)
+    if len(sacks) == 3:
+        score_pt2 += check_stuff(sacks)
+        sacks = []
+
+# score_pt2 += check_stuff(sacks)
+
+
 # print(priorities)
-score = 0
-for i in priorities:
-    score += priorities[i]
-print(score)
+score_pt1 = 0
+
+for i in priorities_pt1:
+    score_pt1 += priorities_pt1[i]
+print(score_pt1)
+print(score_pt2)
